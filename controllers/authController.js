@@ -110,6 +110,7 @@ export const login = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
+		domain: process.env.FRONTEND_URL,
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -118,6 +119,7 @@ export const login = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
+		domain: process.env.FRONTEND_URL,
 	});
 
 	user.refreshToken = refreshToken;
@@ -161,6 +163,7 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
+		domain: process.env.FRONTEND_URL,
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -169,6 +172,7 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
+		domain: process.env.FRONTEND_URL,
 	});
 
 	user.isEmailVerified = true;
@@ -319,6 +323,7 @@ export const isLoggedIn = catchAsync(async (req, res, next) => {
 				path: "/",
 				sameSite: "none",
 				maxAge: 15 * 60 * 1000,
+				domain: process.env.FRONTEND_URL,
 			});
 
 			req.user = currentUser;

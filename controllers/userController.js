@@ -132,6 +132,7 @@ export const changeUserPassword = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
+		domain: process.env.FRONTEND_URL,
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -140,6 +141,7 @@ export const changeUserPassword = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
+		domain: process.env.FRONTEND_URL,
 	});
 
 	user.refreshToken = refreshToken;
