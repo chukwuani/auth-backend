@@ -131,7 +131,7 @@ export const changeUserPassword = catchAsync(async (req, res, next) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
-		sameSite: "lax",
+		sameSite: "none",
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -139,7 +139,7 @@ export const changeUserPassword = catchAsync(async (req, res, next) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
-		sameSite: "lax",
+		sameSite: "none",
 	});
 
 	user.refreshToken = refreshToken;

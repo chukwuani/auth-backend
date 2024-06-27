@@ -109,7 +109,7 @@ export const login = catchAsync(async (req, res, next) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
-		sameSite: "lax",
+		sameSite: "none",
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -117,7 +117,7 @@ export const login = catchAsync(async (req, res, next) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
-		sameSite: "lax",
+		sameSite: "none",
 	});
 
 	user.refreshToken = refreshToken;
@@ -160,7 +160,7 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
-		sameSite: "lax",
+		sameSite: "none",
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -168,7 +168,7 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 		httpOnly: true,
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
-		sameSite: "lax",
+		sameSite: "none",
 	});
 
 	user.isEmailVerified = true;
@@ -317,7 +317,7 @@ export const isLoggedIn = catchAsync(async (req, res, next) => {
 				httpOnly: true,
 				secure: process.env.NODE_ENV === "production",
 				path: "/",
-				sameSite: "lax",
+				sameSite: "none",
 				maxAge: 15 * 60 * 1000,
 			});
 
@@ -361,13 +361,13 @@ export const logout = catchAsync(async (req, res, next) => {
 
 	res.clearCookie("authAccessToken", {
 		httpOnly: true,
-		sameSite: "lax",
+		sameSite: "none",
 		secure: process.env.NODE_ENV === "production",
 	});
 
 	res.clearCookie("authRefreshToken", {
 		httpOnly: true,
-		sameSite: "lax",
+		sameSite: "none",
 		secure: process.env.NODE_ENV === "production",
 	});
 
