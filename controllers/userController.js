@@ -132,7 +132,7 @@ export const changeUserPassword = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
-		domain: process.env.FRONTEND_URL,
+		domain: "https://authkeeper.vercel.app",
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -141,7 +141,7 @@ export const changeUserPassword = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
-		domain: process.env.FRONTEND_URL,
+		domain: "https://authkeeper.vercel.app",
 	});
 
 	user.refreshToken = refreshToken;
