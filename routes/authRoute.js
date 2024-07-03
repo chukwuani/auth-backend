@@ -20,6 +20,7 @@ router.post("/login", login);
 router.post("/verify-email", verifyEmail);
 router.post("/resend-verification", resendVerification);
 router.post("/forgot-password", forgotPassword);
+
 router.patch("/reset-password", resetPassword);
 
 export default router;

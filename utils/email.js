@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 import moment from "moment";
 
+dotenv.config();
+
 async function getLocation() {
 	try {
 		const response = await fetch("https://ipapi.co/json/");
@@ -18,7 +20,7 @@ function getCurrentUTCTime() {
 	return moment.utc().format("DD MMMM YYYY, HH:mm [UTC]");
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_gy51KzdQ_C6UVvWmE8JwPkYU5JssRySVi");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOTPEmail = async ({ email, otp_code }) => {
 	const location = await getLocation();
