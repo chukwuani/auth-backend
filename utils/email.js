@@ -5,9 +5,9 @@ import moment from "moment";
 
 dotenv.config();
 
-async function getLocation() {
+async function getLocation(ip) {
 	try {
-		const response = await fetch("https://ipapi.co/json/");
+		const response = await fetch(`https://ipapi.co/${ip}/json/`);
 
 		const data = await response.json();
 		return data;
@@ -24,8 +24,8 @@ function getCurrentUTCTime() {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendOTPEmail = async ({ email, otp_code }) => {
-	const location = await getLocation();
+export const sendOTPEmail = async ({ email, otp_code, ip }) => {
+	const location = await getLocation(ip);
 	const formattedTime = getCurrentUTCTime();
 
 	const html = `
@@ -172,8 +172,8 @@ export const sendOTPEmail = async ({ email, otp_code }) => {
 	return { data, error };
 };
 
-export const sendPasswordResetEmail = async ({ email, resetUrl }) => {
-	const location = await getLocation();
+export const sendPasswordResetEmail = async ({ email, resetUrl, ip }) => {
+	const location = await getLocation(ip);
 	const formattedTime = getCurrentUTCTime();
 
 	const html = `

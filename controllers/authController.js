@@ -30,6 +30,7 @@ const generateOTP = () => {
 export const signup = catchAsync(async (req, res, next) => {
 	const { firstname, lastname, email, password } = req.body;
 	const otp_code = generateOTP();
+	const ip = req.ip;
 
 	const oldUser = await User.findOne({ email });
 
@@ -42,7 +43,7 @@ export const signup = catchAsync(async (req, res, next) => {
 			otp_code,
 		});
 
-		const { data, error } = await sendOTPEmail({ email, otp_code });
+		const { data, error } = await sendOTPEmail({ email, otp_code, ip });
 
 		if (error) {
 			await User.deleteOne({ email: user.email });
@@ -64,7 +65,7 @@ export const signup = catchAsync(async (req, res, next) => {
 		oldUser.otp_code = otp_code;
 		await oldUser.save();
 
-		const { data, error } = await sendOTPEmail({ email, otp_code, req });
+		const { data, error } = await sendOTPEmail({ email, otp_code, ip });
 
 		if (error) {
 			return next(error);
@@ -76,6 +77,7 @@ export const signup = catchAsync(async (req, res, next) => {
 
 export const login = catchAsync(async (req, res, next) => {
 	const { email, password } = req.body;
+	const ip = req.ip;
 
 	if (!email || !password) {
 		return next(new AppError("Please provide your email and password!", 400));
@@ -96,7 +98,7 @@ export const login = catchAsync(async (req, res, next) => {
 		user.otp_code = otp_code;
 		await user.save();
 
-		const { data, error } = await sendOTPEmail({ email, otp_code, req });
+		const { data, error } = await sendOTPEmail({ email, otp_code, ip });
 
 		return next(new AppError("verify_email", 400));
 	}
@@ -184,6 +186,8 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 });
 
 export const resendVerification = catchAsync(async (req, res, next) => {
+	const ip = req.ip;
+
 	const { email } = req.body;
 	const otp_code = generateOTP();
 
@@ -204,7 +208,7 @@ export const resendVerification = catchAsync(async (req, res, next) => {
 	user.otp_code = otp_code;
 	await user.save();
 
-	const { data, error } = await sendOTPEmail({ email, otp_code });
+	const { data, error } = await sendOTPEmail({ email, otp_code, ip });
 
 	if (error) {
 		return next(error);
@@ -218,6 +222,7 @@ export const resendVerification = catchAsync(async (req, res, next) => {
 
 export const forgotPassword = catchAsync(async (req, res, next) => {
 	const { email } = req.body;
+	const ip = req.ip;
 
 	const user = await User.findOne({ email });
 
@@ -230,7 +235,7 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
 
 	const resetUrl = `${process.env.FRONTEND_URL}/reset-password/?token=${resetToken}`;
 
-	const { data, error } = await sendPasswordResetEmail({ email, resetUrl });
+	const { data, error } = await sendPasswordResetEmail({ email, resetUrl, ip });
 
 	if (error) {
 		user.passwordResetToken = undefined;
