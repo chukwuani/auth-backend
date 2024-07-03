@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+
 import { Resend } from "resend";
 import moment from "moment";
 
