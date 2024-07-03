@@ -110,7 +110,6 @@ export const login = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
-		domain: "https://authkeeper.vercel.app",
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -119,7 +118,6 @@ export const login = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
-		domain: "https://authkeeper.vercel.app",
 	});
 
 	user.refreshToken = refreshToken;
@@ -163,7 +161,6 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
-		domain: "https://authkeeper.vercel.app",
 	});
 
 	res.cookie("authRefreshToken", refreshToken, {
@@ -172,7 +169,6 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
 		secure: process.env.NODE_ENV === "production",
 		path: "/",
 		sameSite: "none",
-		domain: "https://authkeeper.vercel.app",
 	});
 
 	user.isEmailVerified = true;
@@ -323,7 +319,6 @@ export const isLoggedIn = catchAsync(async (req, res, next) => {
 				path: "/",
 				sameSite: "none",
 				maxAge: 15 * 60 * 1000,
-				domain: "https://authkeeper.vercel.app",
 			});
 
 			req.user = currentUser;
