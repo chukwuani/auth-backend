@@ -53,6 +53,8 @@ app.use(
 	})
 );
 
+app.set("trust proxy", true);
+
 // ROUTES
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/auth", authRouter);
